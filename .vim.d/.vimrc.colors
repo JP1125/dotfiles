@@ -1,0 +1,13 @@
+"-------------------------------------------------------------------------------
+" カラー関連 Colors
+"-------------------------------------------------------------------------------
+
+syntax enable
+set background=dark
+colorscheme solarized
+"colorscheme molokai
+"let g:molokai_original = 1
+"colorscheme desert
+
+set nobackup                     " バックアップ取らない
+set autoread                     " 他で書き換えられたら自動で読み直す
