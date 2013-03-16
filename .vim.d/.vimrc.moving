@@ -10,6 +10,12 @@ nnoremap l <Right>
 "nnoremap <Down> gj
 "nnoremap <Up>   gk
 
+" インサートモードで方向キーを有効にする
+imap OA <Up>
+imap OB <Down>
+imap OC <Right>
+imap OD <Left>
+
 " insert mode での移動
 inoremap  <C-e> <END>
 inoremap  <C-a> <HOME>

@@ -25,7 +25,16 @@ set guioptions+=a
 set ttymouse=xterm2
 
 "ヤンクした文字は、システムのクリップボードに入れる"
-set clipboard+=unnamed
+set clipboard+=unnamed ",autoselect
+function! MacRegionCopy() range
+	execute ":silent '<,'>w !nkf -Ws|pbcopy"
+endfunction
+vnoremap <silent> ;y :call MacRegionCopy()<CR>
+function! MacClipPaste()
+	execute ":r !pbpaste"
+endfunction
+"noremap <silent> ;p :call MacClipPaste()<CR>
+
 " 挿入モードでCtrl+kを押すとクリップボードの内容を貼り付けられるようにする "
 " imap <C-p>  <ESC>"*pa
 
