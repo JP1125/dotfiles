@@ -11,6 +11,9 @@ inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 nmap ye ;let @"=expand("<cword>")<CR>
 " Visualモードでのpで選択範囲をレジスタの内容に置き換える
 vnoremap p <Esc>;let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
+vnoremap <Tab> 0>>gv
+vnoremap <S-Tab> 0<<gv
+
 
 " XMLの閉タグを自動挿入
 augroup MyXML
@@ -45,4 +48,22 @@ function! s:toggle_qf_window()
   execute 'botright cw'
 endfunction
 nnoremap <silent> cw :call <SID>toggle_qf_window()<CR>
+
+filetype plugin on
+let g:tex_flavor = 'latex'
+set shellslash
+set grepprg=grep\ -nH\ $*
+" let g:Tex_DefaultTargetFormat = 'pdf' #Macの人はデフォルトでpdfなので必要ない その他のOSの人はデフォルトがdviなので必要
+let g:Tex_CompileRule_dvi = 'platex --interaction=nonstopmode $*'
+let g:Tex_CompileRule_pdf = 'dvipdfmx $*.dvi'
+let g:Tex_FormatDependency_pdf = 'dvi,pdf'
+
+" ファイルのビューワー
+" let g:Tex_ViewRule_dvi = 'xdvi'
+" let g:Tex_ViewRule_pdf = 'evince'
+
+noremap gu <Nop>
+noremap gU <Nop>
+noremap <Leader>gu gu
+noremap <Leader>gU gu
 

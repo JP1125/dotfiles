@@ -1,5 +1,36 @@
 # -*- sh -*-
-PATH=/usr/local/bin:${HOME}/.cabal/bin:$PATH
+PATH=/usr/local/bin:${HOME}android-sdk-macosx/.cabal/bin:/usr/sbin:$PATH
+
+# ruby environment
+export PATH=$HOME/.rbenv/shims:$PATH
+export PATH=$HOME/Documents/source/android_sdk/tools/:$HOME/Documents/source/android_sdk/platform-tools/:$PATH
+eval "$(rbenv init - zsh)"
+
+# python environment
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
+
+# jvm environment
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init - zsh)"
+
+# android-sdk environment
+export PATH="/Applications/android-sdk-macosx/platform-tools:$PATH"
+export PATH="/Applications/android-sdk-macosx/build-tools/23.0.2:$PATH"
+
+# sonar environment
+export SONAR_HOME=/Applications/sonarqube
+export PATH=$SONAR_HOME/bin/macosx-universal-64/:$PATH
+
+# nvm environment
+[[ -s ~/.nvm/nvm.sh ]] && . ~/.nvm/nvm.sh
+nvm alias default v0.10.26
+nvm use default
+npm_dir=${NVM_PATH}_modules
+export NODE_PATH=$npm_dir
+export DYLD_LIBRARY_PATH=/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9
+
 # キーバインド
 ## Emacsキーバインドを使う。
 bindkey -e
@@ -305,16 +336,6 @@ WORDCHARS="${WORDCHARS}|"
 
 
 # alias
-## ページャーを使いやすくする。
-### grep -r def *.rb L -> grep -r def *.rb |& lv
-alias -g L="|& $PAGER"
-## grepを使いやすくする。
-alias -g G='| grep'
-## 後はおまけ。
-alias -g H='| head'
-alias -g T='| tail'
-alias -g S='| sed'
-
 ## ファイル操作を確認する。
 alias rm="rm -i"
 alias cp="cp -i"

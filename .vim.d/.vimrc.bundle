@@ -13,29 +13,30 @@ endif
 
 "set rtp+=~/.vim/bundle/vundle/
 "call vundle#rc()
-"let g:neobundle#types#git#default_protocol = 'git'
 
+let g:neobundle#types#git#default_protocol = 'git'
 
 "
 " Utility
 "
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'thinca/vim-ref'
-NeoBundle 'thinca/quickrun'
+NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'taglist.vim'
 NeoBundle 'ujihisa/vimshell-ssh'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Lokaltog/vim-powerline'
 
+NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/vimproc'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/neocomplcache'
 
-NeoBundle 'kana/vim-metarw'
-NeoBundle 'ujihisa/blogger.vim'
-NeoBundle 'TwitVim'
+"NeoBundle 'kana/vim-metarw'
+"NeoBundle 'ujihisa/blogger.vim'
+"NeoBundle 'TwitVim'
 
 "
 " Syntax
@@ -51,5 +52,7 @@ NeoBundle 'tpope/vim-rails'
 NeoBundle 'violetyk/cake.vim'
 NeoBundle 'hallison/vim-markdown'
 NeoBundle 'altercation/vim-colors-solarized'
+
+NeoBundle 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
 
 filetype plugin indent on

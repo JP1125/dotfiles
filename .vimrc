@@ -11,7 +11,7 @@ source ~/.vim.d/.vimrc.indent
 "表示関連
 source ~/.vim.d/.vimrc.appearance
 "補完関連
-source ~/.vim.d/.vimrc.completion
+"source ~/.vim.d/.vimrc.completion
 "Tags関連
 "source ~/.vim.d/.vimrc.tags
 "検索関連

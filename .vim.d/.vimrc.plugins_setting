@@ -6,7 +6,7 @@
 " MiniBufExplorer
 "------------------------------------
 "set minibfexp
-let g:miniBufExplMapWindowNavVim=1 "hjklで移動
+"let g:miniBufExplMapWindowNavVim=1 "hjklで移動
 let g:miniBufExplSplitBelow=0  " Put new window above
 let g:miniBufExplMapWindowNavArrows=1
 let g:miniBufExplMapCTabSwitchBufs=1
@@ -102,7 +102,7 @@ nmap <silent> <unique> <Leader>ec :ErrorAtCursor<CR>
 " vimshell
 "------------------------------------
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-"let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
+let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
 let g:vimshell_enable_smart_case = 1
 
 if has('win32') || has('win64')
@@ -112,11 +112,11 @@ else
   " Display user name on Linux.
   let g:vimshell_prompt = $USER."% "
 
-  call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
-  call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
-  let g:vimshell_execute_file_list['zip'] = 'zipinfo'
-  call vimshell#set_execute_file('tgz,gz', 'gzcat')
-  call vimshell#set_execute_file('tbz,bz2', 'bzcat')
+  "call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
+  "call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
+  "let g:vimshell_execute_file_list['zip'] = 'zipinfo'
+  "call vimshell#set_execute_file('tgz,gz', 'gzcat')
+  "call vimshell#set_execute_file('tbz,bz2', 'bzcat')
 endif
 
 command! Vs :VimShell
@@ -144,7 +144,7 @@ function! s:unite_my_settings()"{{{
   " ESCキーを2回押すと終了する
   nmap <buffer> <ESC>      <Plug>(unite_exit)
   nmap <buffer> <ESC><ESC> <Plug>(unite_exit)
-  imap <buffer> jj      <Plug>(unite_insert_leave)
+  "imap <buffer> jj      <Plug>(unite_insert_leave)
   nnoremap <silent><buffer> <C-k> :<C-u>call unite#mappings#do_action('preview')<CR>
   imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
   " Start insert.
@@ -191,12 +191,25 @@ function! RSpecQuickrun()
 endfunction
 autocmd BufReadPost *_spec.rb call RSpecQuickrun()
 
-let g:quickrun_config['markdown'] = {
+let g:quickrun_config['md'] = {
 			\ 'command': 'pandoc',
 			\ 'exec': ['%c -s -f markdown -t html -o %s:p:r.html %s', 'open %s:p:r.html', 'sleep 1', 'rm %s:p:r.html'],
 			\ 'tempfile': '{tempname()}.md'
 			\ }
 
+let g:quickrun_config['pdflatex'] = {
+			\ 'command': '/usr/texbin/pdflatex',
+			\ 'exec': ['%c -synctex=1 -interaction=nonstopmode -file-line-error-style %s', 'open %s:r.pdf']
+			\}
+"ptex, latex, tex,
+let g:quickrun_config['tex'] = {
+			\ 'command': '/usr/texbin/platex',
+			\ 'exec': ['%c -synctex=1 -interaction=nonstopmode -file-line-error-style %s',
+			\					'/usr/texbin/dvipdfmx -o %s:r.pdf %s:r.dvi',
+			\					'open %s:r.pdf']
+			\}
+
+"\ 'exec': ['%c -output-directory %s:h %s', 'dvipdfmx -o %s:r.pdf %s:r.dvi', 'open %s:r.pdf']
 "------------------------------------
 " Pydiction
 "------------------------------------
@@ -215,17 +228,53 @@ let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
 "------------------------------------
 let g:vimfiler_as_default_explorer=1
 let g:vimfiler_safe_mode_by_default=0
-nnoremap ,ff :<C-u>VimFiler -split -simple -no-quit<CR>
-nnoremap ,fi :<C-u>VimFiler -split -simple -winwidth=35 -no-quit<CR>
+nnoremap ,ff :<C-u>VimFiler -split -simple -winwidth=35 -no-quit<CR>
 
 "------------------------------------
 "" twitvim
 "------------------------------------
 let twitvim_count = 100
-nnoremap ,tf :<C-u>FriendsTwitter<CR><C-w>j
-nnoremap ,tn :<C-u>NextTwitter<CR>
+"nnoremap ,tf :<C-u>FriendsTwitter<CR><C-w>j
+"nnoremap ,tn :<C-u>NextTwitter<CR>
 
 autocmd FileType twitvim call s:twitvim_my_settings()
 function! s:twitvim_my_settings()
     set nowrap
 endfunction
+
+
+"------------------------------------
+"" vim-latex
+"------------------------------------
+filetype plugin on
+filetype indent on
+set shellslash
+set grepprg=grep\ -nH\ $*
+let g:tex_flavor='latex'
+let g:Imap_UsePlaceHolders = 1
+let g:Imap_DeleteEmptyPlaceHolders = 1
+let g:Imap_StickyPlaceHolders = 0
+let g:Tex_DefaultTargetFormat = 'pdf'
+let g:Tex_MultipleCompileFormats='dvi,pdf'
+let g:Tex_FormatDependency_pdf = 'dvi,pdf'
+let g:Tex_FormatDependency_ps = 'dvi,ps'
+"let g:Tex_CompileRule_dvi = 'platex --interaction=nonstopmode $*'
+let g:Tex_CompileRule_pdf = '/usr/texbin/ptex2pdf -u -l -ot "-synctex=1 -interaction=nonstopmode -file-line-error-style" $*'
+"let g:Tex_CompileRule_pdf = 'dvipdfmx $*.dvi'
+"let g:Tex_CompileRule_pdf = '/usr/texbin/platex -synctex=1 -interaction=nonstopmode -file-line-error-style" $*'
+"let g:Tex_CompileRule_pdf = '/usr/texbin/pdflatex -synctex=1 -interaction=nonstopmode -file-line-error-style" $*'
+"let g:Tex_CompileRule_ps = '/usr/texbin/dvips -Ppdf -o $*.ps $*.dvi'
+let g:Tex_ViewRule_pdf = '/usr/bin/open -a Preview.app'
+"let g:Tex_ViewRule_pdf = '/usr/bin/open -a TeXShop.app'
+"let g:Tex_ViewRule_pdf = '/usr/bin/open -a TeXworks.app'
+
+" ファイルのビューワー
+" let g:Tex_ViewRule_dvi = 'xdvi'
+" let g:Tex_ViewRule_pdf = 'evince'
+
+if executable('jq')
+	function! s:jq(...)
+		execute '%!jq' (a:0 == 0 ? '.' : a:1)
+	endfunction
+	command! -bar -nargs=? Jq  call s:jq(<f-args>)
+endif
