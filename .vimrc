@@ -1,7 +1,8 @@
 "vimrc 内で使用する password
-source ~/.vim.d/.vimrc.password
+"source ~/.vim.d/.vimrc.password
 "vunlde.vimで管理してるpluginを読み込む
-source ~/.vim.d/.vimrc.bundle
+"source ~/.vim.d/.vimrc.bundle
+source ~/.vim.d/.vimrc.dein
 "基本設定
 source ~/.vim.d/.vimrc.basic
 "StatusLine設定
