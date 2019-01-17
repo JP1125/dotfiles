@@ -1,35 +1,9 @@
 # -*- sh -*-
-PATH=/usr/local/bin:${HOME}android-sdk-macosx/.cabal/bin:/usr/sbin:$PATH
+PATH=/usr/local/bin:/usr/localsbin:/usr/sbin:/usr/sbin:$PATH
 
-# ruby environment
-export PATH=$HOME/.rbenv/shims:$PATH
-export PATH=$HOME/Documents/source/android_sdk/tools/:$HOME/Documents/source/android_sdk/platform-tools/:$PATH
-eval "$(rbenv init - zsh)"
-
-# python environment
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - zsh)"
-
-# jvm environment
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init - zsh)"
-
-# android-sdk environment
-export PATH="/Applications/android-sdk-macosx/platform-tools:$PATH"
-export PATH="/Applications/android-sdk-macosx/build-tools/23.0.2:$PATH"
-
-# sonar environment
-export SONAR_HOME=/Applications/sonarqube
-export PATH=$SONAR_HOME/bin/macosx-universal-64/:$PATH
-
-# nvm environment
-[[ -s ~/.nvm/nvm.sh ]] && . ~/.nvm/nvm.sh
-nvm alias default v0.10.26
-nvm use default
-npm_dir=${NVM_PATH}_modules
-export NODE_PATH=$npm_dir
-export DYLD_LIBRARY_PATH=/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9
+# anyenv
+PATH="$HOME/.anyenv/bin:$PATH"
+eval "$(anyenv init -)"
 
 # キーバインド
 ## Emacsキーバインドを使う。
