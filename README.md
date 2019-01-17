@@ -1,27 +1,23 @@
 my rc files
 ===========
+
 - edit vim files from yuroyoro/dotfiles
 - edit zsh files from clear-code/zsh.d
-
+- download riywo/anyenv
 - and my tmux.conf
 
 howto install
 =============
 
-- deploy dir and files in ~/
-- and execute commands below
+- deploy directories and files in ~/
+- and launch vim
 
 ```
-	$ mkdir ~/.vim/bundle
-	$ git clone git(http/https)://github.com/Shougo/neobundle.vim ~/.vim/bundle/
-	$ vi ~/.vim.d/.vimrc.bundle
-	:NeoBundleInstall (then you can get some plugins from git)
+	$ mkdir ~/tmp
+	$ git clone https://github.com/jp1125/dotfiles ~/tmp/dotfiles
+	$ cd ~/tmp/dotfiles
+	$ mv .z* ~/.v* ~/.tmux.conf ~/
+	$ git clone https://github.com/riywo/anyenv ~/.anyenv
+	$ vim
+	... automatically install dein plugins ...
 ```
-
-- if you catch some errors about vimproc, execute commands below
-
-```
-	$ cd ~/.vim/bundle/vimproc
-	$ make -f make_(SYSTEM).mak
-```
-
