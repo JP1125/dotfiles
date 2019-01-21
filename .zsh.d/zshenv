@@ -27,7 +27,7 @@ path=(# システム用
       /usr/local/bin(N-/)
       /usr/bin(N-/)
       /usr/games(N-/)
-	  /sbin(N-/))
+      /sbin(N-/))
 
 # sudo時のパスの設定
 ## -x: export SUDO_PATHも一緒に行う。
@@ -63,29 +63,8 @@ manpath=(# 自分用
          /usr/local/share/man(N-/)
          /usr/share/man(N-/))
 
-# Rubyの設定
-## ライブラリのロードパス
-### -x: export RUBYLIBも一緒に行う。
-### -T: RUBYLIBとruby_pathを連動する。
-#typeset -xT RUBYLIB ruby_path
-### 重複したパスを登録しない。
-#typeset -U ruby_path
-### パスを設定
-# ruby_path=(# カレントディレクトリのライブラリを優先する
-#          ./lib)
-#export PATH="$HOME/.rbenv/shims$PATH"
-#eval "$(rbenv init -)"
-
-# Pythonの設定
-## ライブラリのロードパス
-### -x: export PYTHONPATHも一緒に行う。
-### -T: PYTHONPATHとpython_pathを連動する。
-typeset -xT PYTHONPATH pyhon_path
-### 重複したパスを登録しない。
-typeset -U python_path
-### パスを設定。
-python_path=(# カレントディレクトリのライブラリを優先する
-             ./lib)
+# anyenv setting, loading path
+[ -d ~/.anyenv/bin ] && export PATH=$HOME/.anyenv/bin:$PATH
 
 # pkg-configの設定
 ## .pcのロードパス
@@ -105,26 +84,6 @@ pkg_config_path=(# 自分用
                  $HOME/local/lib/pkgconfig(N-/)
                  # MacPorts用
                  /opt/local/lib/pkgconfig(N-/))
-
-# ページャの設定
-if type lv > /dev/null 2>&1; then
-    ## lvを優先する。
-    export PAGER="lv"
-else
-    ## lvがなかったらlessを使う。
-    export PAGER="less"
-fi
-
-# lvの設定
-if [ "$PAGER" = "lv" ]; then
-    ## -c: ANSIエスケープシーケンスの色付けなどを有効にする。
-    ## -l: 1行が長くと折り返されていても1行として扱う。
-    ##     （コピーしたときに余計な改行を入れない。）
-    export LV="-c -l"
-else
-    ## lvがなくてもlvでページャーを起動する。
-    alias lv="$PAGER"
-fi
 
 # grepの設定
 ### 可能なら色を付ける。
@@ -146,18 +105,3 @@ export EDITOR=vim
 if ! type vim > /dev/null 2>&1; then
     alias vim=vi
 fi
-
-# メールアドレスの設定
-## ~/.zsh.d/email → ~/.emailの順に探して最初に見つかったファイルから読み込む。
-## (N-.): 存在しないファイルは登録しない。
-##    パス(...): ...という条件にマッチするパスのみ残す。
-##            N: NULL_GLOBオプションを設定。
-##               globがマッチしなかったり存在しないパスを無視する。
-##            -: シンボリックリンク先のパスを評価。
-##            .: 通常のファイルのみ残す。
-email_files=(~/.zsh.d/email(N-.)
-             ~/.email(N-.))
-for email_file in ${email_files}; do
-    export EMAIL=$(cat "$email_file")
-    break
-done
