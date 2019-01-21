@@ -1,9 +1,8 @@
 # -*- sh -*-
 PATH=/usr/local/bin:/usr/localsbin:/usr/sbin:/usr/sbin:$PATH
 
-# anyenv
-PATH="$HOME/.anyenv/bin:$PATH"
-eval "$(anyenv init -)"
+# anyenv init
+[ -f ~/.anyenv/bin/anyenv ] && eval "$(anyenv init - zsh)"
 
 # キーバインド
 ## Emacsキーバインドを使う。
