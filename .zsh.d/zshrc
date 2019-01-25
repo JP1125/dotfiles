@@ -2,7 +2,7 @@
 PATH=/usr/local/bin:/usr/localsbin:/usr/sbin:/usr/sbin:$PATH
 
 # anyenv init
-[ -f ~/.anyenv/bin/anyenv ] && eval "$(anyenv init - zsh)"
+[ -f ~/.anyenv/bin/anyenv ] && eval "$(anyenv init - --no-rehash)"
 
 # キーバインド
 ## Emacsキーバインドを使う。
