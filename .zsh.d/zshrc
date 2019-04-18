@@ -1,5 +1,6 @@
 # -*- sh -*-
 PATH=/usr/local/bin:/usr/localsbin:/usr/sbin:/usr/sbin:$PATH
+PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH # brew install coreutils
 
 # anyenv init
 [ -f ~/.anyenv/bin/anyenv ] && eval "$(anyenv init - --no-rehash)"
@@ -319,30 +320,34 @@ alias x="exit"
 
 alias vi="vim"
 
+export LSCOLORS=exfxcxdxbxegedabagacad
+export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
+
 ## lsとpsの設定
 ### ls: できるだけGNU lsを使う。
 ### ps: 自分関連のプロセスのみ表示。
 case $(uname) in
-    *BSD|Darwin)
-	if [ -x "$(which gnuls)" ]; then
-	    alias ls="gnuls"
-	    alias la="ls -lhAF --color=auto"
+	*BSD|Darwin)
+	if [ -x "$(which gls)" ]; then
+		alias ls="gls --color=auto"
+		alias la="gls -lhAF --color=auto"
 	else
 		alias ls="ls -FG"
-	    alias la="ls -lhAFG"
+		alias la="ls -lhAFG"
 	fi
 	alias ps="ps -fU$(whoami)"
 	;;
-    SunOS)
+	SunOS)
 	if [ -x "`which gls`" ]; then
-	    alias ls="gls"
-	    alias la="ls -lhAF --color=auto"
+		alias ls="gls"
+		alias la="ls -lhAF --color=auto"
 	else
-	    alias la="ls -lhAF --color=auto"
+		alias la="ls -lhAF --color=auto"
 	fi
 	alias ps="ps -fl -u$(/usr/xpg4/bin/id -un)"
 	;;
-    *)
+	*)
 	alias la="ls -lhAF --color=auto"
 	alias ps="ps -fU$(whoami) --forest"
 	;;
